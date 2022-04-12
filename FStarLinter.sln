@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32317.152
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FStarLinter", "FStarLinter\FStarLinter.csproj", "{8971F999-195E-4A94-AEDC-F5186EBA5135}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8971F999-195E-4A94-AEDC-F5186EBA5135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8971F999-195E-4A94-AEDC-F5186EBA5135}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8971F999-195E-4A94-AEDC-F5186EBA5135}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8971F999-195E-4A94-AEDC-F5186EBA5135}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0075409B-9597-42D9-AE4D-717AC34D1761}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FStarLinter": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\d\\github\\fstar\\FStar\\ulib"
+    }
+  }
+}
