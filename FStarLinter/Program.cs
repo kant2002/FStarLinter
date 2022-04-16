@@ -10,6 +10,8 @@ if (args.Length == 0)
 
 var sourcesFolder = args[0];
 var files = Directory.EnumerateFiles(sourcesFolder, "*.fst?", SearchOption.AllDirectories);
+var aliasMap = new Dictionary<string, HashSet<string>>();
+var aliasReverseMap = new Dictionary<string, HashSet<string>>();
 foreach (var file in files)
 {
     if (file.Contains("examples") || file.Contains("tests"))
@@ -18,6 +20,22 @@ foreach (var file in files)
     }
 
     ProcessFile(file);
+}
+
+foreach (var (moduleName, aliasList) in aliasMap)
+{
+    if (aliasList.Count > 2)
+    {
+        WriteLine($"Module {moduleName} has following aliases: {string.Join(',', aliasList)}");
+    }
+}
+
+foreach (var (moduleAlias, moduleNamesList) in aliasReverseMap)
+{
+    if (moduleNamesList.Count > 2)
+    {
+        WriteLine($"Alias {moduleAlias} has following aliases: {string.Join(',', moduleNamesList)}");
+    }
 }
 
 
@@ -68,6 +86,8 @@ void ProcessFile(string file)
         if (aliasOpenMatch.Success)
         {
             var aliasOpenedModuleName = aliasOpenMatch.Groups["name"].Value;
+            var moduleAlias = aliasOpenMatch.Groups["alias"].Value;
+            RegisterModuleAlias(aliasOpenedModuleName, moduleAlias);
             if (map.TryGetValue(aliasOpenedModuleName, out var aliasOpenedModule))
             {
                 aliasOpenedModule.UsingAliasInclusionCount++;
@@ -95,10 +115,30 @@ void ProcessFile(string file)
 
             if (moduleInclusionReport.FullNameInclusionCount >= 1 && moduleInclusionReport.UsingAliasInclusionCount >= 1)
             {
-                WriteLine($"Module {name} included using using both alias and globally in the {file}");
+                //WriteLine($"Module {name} included using using both alias and globally in the {file}");
             }
         }
     }
+}
+
+void RegisterModuleAlias(string moduleName, string alias)
+{
+    if (!aliasMap.TryGetValue(moduleName, out var aliasList))
+    {
+        aliasList = new HashSet<string>();
+        aliasMap.Add(moduleName, aliasList);
+    }
+
+    aliasList.Add(alias);
+
+
+    if (!aliasReverseMap.TryGetValue(alias, out var moduleNamesList))
+    {
+        moduleNamesList = new HashSet<string>();
+        aliasReverseMap.Add(alias, moduleNamesList);
+    }
+
+    moduleNamesList.Add(moduleName);
 }
 
 class ModuleInclusitonReport
